@@ -1,8 +1,10 @@
 <template>
   <div>
+    test test
     <!-- TODO: no longer needs v-model -->
     <!-- TODO: remove @keydown and handle the 'addToDo' logic in BaseInputText component -->
     <BaseInputText />
+
     <ul v-if="todos.length">
       <TodoListItem
         v-for="todo in todos"
