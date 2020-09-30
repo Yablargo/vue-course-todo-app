@@ -17,9 +17,19 @@ const state = {
 
 const getters = {};
 
-const mutations = {};
+const mutations = {
+  REMOVE_TODO: (state, id) => {
+    state.todos = state.todos.filter((todo) => {
+      return todo.id !== id;
+    });
+  },
+};
 
-const actions = {};
+const actions = {
+  removeTodo({ commit }, id) {
+    commit("REMOVE_TODO", id);
+  },
+};
 
 export default {
   namespaced: true,
