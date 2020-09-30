@@ -1,15 +1,14 @@
 <template>
-  <input type="text" class="input" :value="value" v-on="listeners" />
+  <input type="text" class="input" v-model="value" />
 </template>
 
 <script>
 export default {
   // TODO: replace with a data
-  props: {
-    value: {
-      type: String,
-      default: "",
-    },
+  data() {
+    return {
+      value: "",
+    };
   },
   computed: {
     // TODO: delete this and add a method that calls Vuex action 'addTodo'
