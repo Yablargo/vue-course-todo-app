@@ -22,11 +22,11 @@ import BaseInputText from "./BaseInputText.vue";
 import TodoListItem from "./TodoListItem.vue";
 import { mapState, mapActions } from "vuex";
 
-let nextTodoId = 1;
-
 export default {
   computed: {
-    todos: (state) => state.todo.todos,
+    ...mapState({
+      todos: (state) => state.todo.todos,
+    }),
   },
   components: {
     BaseInputText,
