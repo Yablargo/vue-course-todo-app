@@ -17,9 +17,31 @@ const state = {
 
 const getters = {};
 
-const mutations = {};
+const mutations = {
+  ADD_TODO: (state, val) => {
+    state.todos.push({
+      id: state.todos[state.todos.length - 1].id + 1,
+      text: val,
+    });
+  },
+  REMOVE_TODO: (state, id) => {
+    state.todos = state.todos.filter((todo) => {
+      return todo.id !== id;
+    });
+  },
+};
 
-const actions = {};
+const actions = {
+  addTodo: ({ commit }, txt) => {
+    const trimmedText = txt.trim();
+    if (trimmedText) {
+      commit("ADD_TODO", trimmedText);
+    }
+  },
+  removeTodo: ({ commit }, idToRemove) => {
+    commit("REMOVE_TODO", idToRemove);
+  },
+};
 
 export default {
   namespaced: true,

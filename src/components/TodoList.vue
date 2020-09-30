@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- TODO: no longer needs v-model -->
-    <!-- TODO: remove @keydown and handle the 'addToDo' logic in BaseInputText component -->
     <BaseInputText />
     <TodoListItem />
     <p v-if="!todos.length">
@@ -16,39 +14,16 @@ import TodoListItem from "./TodoListItem.vue";
 
 import { mapState } from "vuex";
 
-let nextTodoId = 1;
-
 export default {
   components: {
     BaseInputText,
     TodoListItem,
-  },
-  data() {
-    return {};
   },
   computed: {
     ...mapState({
       todos: (state) => state.todo.todos,
     }),
   },
-  // move all methods into Vuex action
-  // there shouldn't be any methods here because we're moving the logic into the component
-  methods: {
-    addTodo() {
-      const trimmedText = this.newTodoText.trim();
-      if (trimmedText) {
-        this.todos.push({
-          id: nextTodoId++,
-          text: trimmedText,
-        });
-        this.newTodoText = "";
-      }
-    },
-    removeTodo(idToRemove) {
-      this.todos = this.todos.filter((todo) => {
-        return todo.id !== idToRemove;
-      });
-    },
-  },
+  methods: {},
 };
 </script>

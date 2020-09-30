@@ -1,24 +1,39 @@
 <template>
-  <input type="text" class="input" v-model="value" />
+  <!--
+  <input
+    type="text"
+    class="input"
+    v-model="value"
+    @keydown.enter="add(value)"
+  />
+  -->
+
+  <input
+    type="text"
+    class="input"
+    v-model="value"
+    @keydown.enter="addNewTodo"
+  />
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  // TODO: replace with a data
   data() {
     return {
       value: "",
     };
   },
-  computed: {
-    // TODO: delete this and add a method that calls Vuex action 'addTodo'
-    listeners() {
-      return {
-        // Pass all component listeners directly to input
-        ...this.$listeners,
-        // Override input listener to work with v-model
-        input: (event) => this.$emit("input", event.target.value),
-      };
+  computed: {},
+  methods: {
+    ...mapActions({
+      add: "todo/addTodo",
+    }),
+    addNewTodo() {
+      // this.add(this.value);
+      this.$store.dispatch("todo/addTodo", this.value);
+      this.value = "";
     },
   },
 };
