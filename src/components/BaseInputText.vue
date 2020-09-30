@@ -1,26 +1,26 @@
 <template>
-  <input type="text" class="input" :value="value" v-on="listeners" />
+  <input
+    type="text"
+    class="input"
+    :value="value"
+    @keyup.enter="addTodo($event.target.value)"
+  />
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   // TODO: replace with a data
-  props: {
-    value: {
-      type: String,
-      default: "",
-    },
+  data: function() {
+    return {
+      value: "",
+    };
   },
-  computed: {
-    // TODO: delete this and add a method that calls Vuex action 'addTodo'
-    listeners() {
-      return {
-        // Pass all component listeners directly to input
-        ...this.$listeners,
-        // Override input listener to work with v-model
-        input: (event) => this.$emit("input", event.target.value),
-      };
-    },
+  methods: {
+    ...mapActions("todo", [
+      "addTodo", // -> this.foo()
+    ]),
   },
 };
 </script>
