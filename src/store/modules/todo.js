@@ -23,6 +23,10 @@ const mutations = {
       return todo.id !== id;
     });
   },
+  ADD_TODO: (state, txt) => {
+    let maxId = Math.max((maxId = state.todos.map((t) => t.id)));
+    state.todos.push({ id: maxId + 1, text: txt });
+  },
 };
 
 const actions = {
@@ -30,8 +34,7 @@ const actions = {
     commit("REMOVE_TODO", id);
   },
   addTodo: ({ commit }, txt) => {
-    let maxId = Math.max((maxId = state.todos.map((t) => t.id)));
-    state.todos.push({ id: maxId + 1, text: txt });
+    commit("ADD_TODO", txt.trim());
   },
 };
 
