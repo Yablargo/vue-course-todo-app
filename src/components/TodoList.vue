@@ -2,11 +2,7 @@
   <div>
     <!-- TODO: no longer needs v-model -->
     <!-- TODO: remove @keydown and handle the 'addToDo' logic in BaseInputText component -->
-    <BaseInputText
-      v-model="newTodoText"
-      placeholder="New todo"
-      @keydown.enter="addTodo"
-    />
+    <BaseInputText />
     <ul v-if="todos.length">
       <TodoListItem
         v-for="todo in todos"
@@ -24,52 +20,22 @@
 <script>
 import BaseInputText from "./BaseInputText.vue";
 import TodoListItem from "./TodoListItem.vue";
+import { mapState, mapActions } from "vuex";
 
 let nextTodoId = 1;
 
 export default {
+  computed: {
+    todos: (state) => state.todo.todos,
+  },
   components: {
     BaseInputText,
     TodoListItem,
   },
-  data() {
-    return {
-      newTodoText: "",
-      // replace with Vuex state
-      todos: [
-        {
-          id: nextTodoId++,
-          text: "Learn Vue",
-        },
-        {
-          id: nextTodoId++,
-          text: "Learn about single-file components",
-        },
-        {
-          id: nextTodoId++,
-          text: "Fall in love",
-        },
-      ],
-    };
+  methods: {
+    ...mapActions,
   },
   // move all methods into Vuex action
   // there shouldn't be any methods here because we're moving the logic into the component
-  methods: {
-    addTodo() {
-      const trimmedText = this.newTodoText.trim();
-      if (trimmedText) {
-        this.todos.push({
-          id: nextTodoId++,
-          text: trimmedText,
-        });
-        this.newTodoText = "";
-      }
-    },
-    removeTodo(idToRemove) {
-      this.todos = this.todos.filter((todo) => {
-        return todo.id !== idToRemove;
-      });
-    },
-  },
 };
 </script>
